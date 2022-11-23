@@ -6,12 +6,18 @@
 - 7 -> да
 - 1 -> нет
 '''
-number = int(input("Введите день недели: "))
-if 0 < number < 6:
-    print('Данный день рабочий')
-elif 5 < number < 8:
-    print('Данный день выходной')
-else:
-    print('Данное число не является днем недели')
 
+def Input (inputText):
+    number = int(input(f'{inputText}'))
+    return number
 
+def Calculate(number):
+    if 0 < number < 6:
+        print('Данный день рабочий')
+    elif 5 < number < 8:
+        print('Данный день выходной')
+    else:
+        print('Данное число не является днем недели')
+        
+num = Input("Введите день недели: ")
+Calculate(num)
