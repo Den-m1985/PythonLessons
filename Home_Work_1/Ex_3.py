@@ -9,6 +9,27 @@
 - x=-34; y=-30 -> 3
 '''
 
+def Input (inputText):
+    number = int(input(f'{inputText}'))
+    return number
+
+
+def Calculate(x, y):
+    if  x > 0 and y > 0:
+        print('координаты соответствуют 1й четверти')
+    elif x < 0 and y > 0:
+        print('координаты соответствуют 2й четверти')
+    elif x < 0 and y < 0:
+        print('координаты соответствуют 3й четверти')
+    elif x > 0 and y < 0:
+        print('координаты соответствуют 4й четверти')
+    else:
+        print('Что-то пошло не так')
+
+coordinate_X = Input("Введите координату x: ")
+coordinate_Y = Input("Введите координату y: ")
+Calculate(coordinate_X, coordinate_Y)
+'''
 x = int(input("Введите координату x: "))
 y = int(input("Введите координату y: "))
 if  x > 0 and y > 0:
@@ -21,3 +42,4 @@ elif x > 0 and y < 0:
     print('координаты соответствуют 4й четверти')
 else:
     print('Что-то пошло не так')
+'''
