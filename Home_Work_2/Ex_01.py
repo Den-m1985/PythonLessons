@@ -18,7 +18,7 @@ def calculate(num):
             sum += int(i)
     return sum
 
-        
+
 num = add_to_lst("Введите число в одну строку: ")
 sumNums = calculate(num)
 print(f"Сумма цифр = {sumNums}")

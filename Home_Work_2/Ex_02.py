@@ -9,8 +9,8 @@
 def add_to_lst(inputText):
     number = int(input(f'{inputText}'))
     return number
-     
-      
+
+
 def factorial(n):
     if n == 1:
         return 1

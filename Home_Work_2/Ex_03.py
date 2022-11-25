@@ -13,7 +13,7 @@ def add_to_lst(input_Text):
 def calculate(number):
     lst = []
     for item in range(1, number + 1):
-        lst.append((1+ 1 / item)**item)
+        lst.append((1 + 1 / item)**item)
     return lst
 
 
