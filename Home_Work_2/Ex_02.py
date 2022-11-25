@@ -6,7 +6,7 @@
 '''
 
 
-def Input(inputText):
+def add_to_lst(inputText):
     number = int(input(f'{inputText}'))
     return number
      
@@ -18,7 +18,7 @@ def factorial(n):
         return n * factorial(n - 1)
 
 
-num = Input("Введите целое число от 2 и больше: ")
+num = add_to_lst("Введите целое число от 2 и больше: ")
 
 list = []
 for e in range(1, num + 1):
