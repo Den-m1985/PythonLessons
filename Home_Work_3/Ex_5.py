@@ -40,3 +40,20 @@ for e in range(1, num + 1):
 lst_minus.reverse()
 result = lst_minus + lst_plus
 print(result)
+
+
+'''
+# Задача от преподавателя
+mem = {1:0, 2:1}
+
+
+def fib(n):
+    if n not in mem:
+        mem[n] = fib(n-1) + fib(n-2)
+    return mem[n]
+    
+
+print(fib(150))
+print(mem)
+
+'''
