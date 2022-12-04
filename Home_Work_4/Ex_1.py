@@ -7,9 +7,9 @@
 
 def calculate_Pi(k):
     pi = 0
-    for k in range(1, 1000000):
+    for k in range(1, 10000):
         pi = pi+4*((-1)**(k+1))/(2*k-1)
-    print(pi)
+    print(round(pi, 4))
     
 
 calculate_Pi(1)
