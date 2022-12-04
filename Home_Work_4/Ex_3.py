@@ -13,18 +13,21 @@ def consecutive_elements(n):
     return lst
 
 
-def repeating_elements(lst):
+def repeating_elements(lst, n):
     not_repeat = []
-    i = 1
-    while i < len(lst):
-        if lst[i] < lst[i-1]:
-            not_repeat.append(lst[i])
-        i += 1
+    for number in lst:
+        if number not in not_repeat:
+            not_repeat.append(number)
+    #for item in lst:
+    #    for j in not_repeat:
+    #        if j == item:
+    #            not_repeat.append(item)
+
     return not_repeat
 
 
 n = 10  # Lenght list
 array = consecutive_elements(n)
 print(f'Исходный список: {array}')
-result = repeating_elements(array)
+result = repeating_elements(array, n)
 print(result)
