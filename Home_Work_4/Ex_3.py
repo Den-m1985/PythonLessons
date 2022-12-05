@@ -13,11 +13,13 @@ def set_of_numbers(n):
     return arr
 
 
-def test(lst):
+def sort(lst):
     return [a for a in set(lst) if lst.count(a) < 2]
 
 
 n = 10  # Lenght list
 array = set_of_numbers(n)
 print(f'Исходный список: {array}')
-print(test(array))
+
+sort_list = sort(array)
+print(f'Список уникальных цисел: {sort_list}')
