@@ -11,7 +11,7 @@ def read_file(file):
 
 
 def write_to_file(file_name, result):
-    with open(file_name, 'a', encoding='utf-8') as f_obj:
+    with open(file_name, 'w', encoding='utf-8') as f_obj:
         f_obj.write(result)
 
 
