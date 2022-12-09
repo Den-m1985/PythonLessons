@@ -147,27 +147,27 @@ else:
 
 
 
-CANDIES = 60
+CANDIES = 60  # неизменяемое значение
 MAX_STEP = 28
  
-human = True
+human = True  #первый ходит человек
 cur_candies = CANDIES
  
  
 def get_ai_step():
-    return randint(1, min(MAX_STEP, cur_candies))
+    return randint(1, min(MAX_STEP, cur_candies))  #он не может взять больше чем там лежит
  
  
 def get_human_step():
-    while True:
+    while True:   # бесконечный цикл
         cnt = input('Введите количество конфет: ')
         if cnt.isdigit() and 1 <= int(cnt) <= min(MAX_STEP, cur_candies):
             return int(cnt)
         print('Введено некорректное значение')
  
  
-while cur_candies:
-    if human:
+while cur_candies: # пока здесь что-то есть играем !=0
+    if human: # если переменная истина
         cnt = get_human_step()
         cur_candies -= cnt
         print(f'Пользователь взял {cnt} конфет. Осталось {cur_candies}.')
@@ -175,7 +175,7 @@ while cur_candies:
         cnt =get_ai_step()
         cur_candies -= cnt
         print(f'Бот взял {cnt} конфет. Осталось {cur_candies}.')
-    human = not human
+    human = not human   # переключатель с user на бота
  
 if human:
     print('Победил БОТ')
