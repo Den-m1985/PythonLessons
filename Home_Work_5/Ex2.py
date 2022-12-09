@@ -19,10 +19,10 @@ count_candies = 2021
 max_candy = 28
 count = count_candies // max_candy  # Кол-во целых делений
 residue = count_candies - (count * max_candy)   # Остаток от целого деления
-print(f'Что бы всегда побеждать тебе нужно ходить первым с 1 по {residue -1} конфет')
+print(
+    f'Что бы всегда побеждать тебе нужно ходить первым с 1 по {residue -1} конфет')
 print(f'При этом тебе нужно добавлять до {max_candy} конфет')
 print(f'В конце останется от 1 до 4 конфета и ты заберешь все')
-
 
 
 '''
@@ -145,39 +145,50 @@ else:
         f'Поздравляю! В этот раз победил {player2}! Ему достаются все {count_candies} конфет!')
 '''
 
-
-
 CANDIES = 60  # неизменяемое значение
 MAX_STEP = 28
- 
-human = True  #первый ходит человек
+
+human = True  # первый ходит человек
 cur_candies = CANDIES
- 
- 
-def get_ai_step():
-    return randint(1, min(MAX_STEP, cur_candies))  #он не может взять больше чем там лежит
- 
- 
-def get_human_step():
+min_step = min(MAX_STEP, cur_candies)
+
+# Сюда допилить интелект
+def get_ai_step(min_step):
+    # он не может взять больше чем там лежит
+    return randint(1, min_step)
+
+ # Ходит user
+
+
+def get_human_step(min_step):
     while True:   # бесконечный цикл
-        cnt = input('Введите количество конфет: ')
-        if cnt.isdigit() and 1 <= int(cnt) <= min(MAX_STEP, cur_candies):
+        cnt = input(f'Ваш ход. Не более {min_step} конфет: ')
+        if cnt.isdigit() and 1 <= int(cnt) <= min_step:
             return int(cnt)
         print('Введено некорректное значение')
- 
- 
-while cur_candies: # пока здесь что-то есть играем !=0
-    if human: # если переменная истина
-        cnt = get_human_step()
-        cur_candies -= cnt
-        print(f'Пользователь взял {cnt} конфет. Осталось {cur_candies}.')
+
+
+
+def main(cur_candies, human, min_step):
+    while cur_candies:  # пока здесь что-то есть играем !=0
+        if human:  # если переменная истина
+            cnt = get_human_step(min_step)
+            cur_candies -= cnt
+            print(f'Пользователь взял {cnt} конфет. Осталось {cur_candies}.')
+        else:
+            cnt = get_ai_step(min_step)
+            cur_candies -= cnt
+            print(f'Бот взял {cnt} конфет. Осталось {cur_candies}.')
+        human = not human   # переключатель с user на бота
+
+    if human:
+        print('Победил ПИТОН')
     else:
-        cnt =get_ai_step()
-        cur_candies -= cnt
-        print(f'Бот взял {cnt} конфет. Осталось {cur_candies}.')
-    human = not human   # переключатель с user на бота
- 
-if human:
-    print('Победил БОТ')
-else:
-    print('Победил человек')
+        print('Победил user')
+
+
+print()
+print(f'Игра с Питоном за {CANDIES} конфет')
+print()
+
+main(cur_candies, human, min_step)
