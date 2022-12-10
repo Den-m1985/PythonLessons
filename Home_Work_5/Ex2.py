@@ -148,47 +148,64 @@ else:
 CANDIES = 60  # неизменяемое значение
 MAX_STEP = 28
 
-human = True  # первый ходит человек
-cur_candies = CANDIES
-min_step = min(MAX_STEP, cur_candies)
-
-# Сюда допилить интелект
-def get_ai_step(min_step):
-    # он не может взять больше чем там лежит
-    return randint(1, min_step)
-
- # Ходит user
-
-
-def get_human_step(min_step):
-    while True:   # бесконечный цикл
-        cnt = input(f'Ваш ход. Не более {min_step} конфет: ')
-        if cnt.isdigit() and 1 <= int(cnt) <= min_step:
-            return int(cnt)
-        print('Введено некорректное значение')
-
-
-
-def main(cur_candies, human, min_step):
-    while cur_candies:  # пока здесь что-то есть играем !=0
-        if human:  # если переменная истина
-            cnt = get_human_step(min_step)
-            cur_candies -= cnt
-            print(f'Пользователь взял {cnt} конфет. Осталось {cur_candies}.')
-        else:
-            cnt = get_ai_step(min_step)
-            cur_candies -= cnt
-            print(f'Бот взял {cnt} конфет. Осталось {cur_candies}.')
-        human = not human   # переключатель с user на бота
-
-    if human:
-        print('Победил ПИТОН')
-    else:
-        print('Победил user')
-
-
 print()
 print(f'Игра с Питоном за {CANDIES} конфет')
 print()
 
-main(cur_candies, human, min_step)
+human = True  # первый ходит человек
+cur_candies = CANDIES
+
+first_piayer = randint(1, 2)
+if first_piayer == 1:
+    human = True
+    print('Первый ходит User')
+else:
+    human = not human
+    print('Первый ходит Питон')
+
+
+# Сюда допилить интелект
+def get_ai_step():
+    step =  min(MAX_STEP, cur_candies)# он не может взять больше чем там лежит
+    if cur_candies <= step:
+        return step
+    return randint(1, step)
+
+
+ # Ходит user
+def get_human_step():
+    step =  min(MAX_STEP, cur_candies)
+    attempt = 3
+    while attempt > 0:
+        cnt = input(f'Ваш ход. Не более {step} конфет: ')
+        if cnt.isdigit() and 1 <= int(cnt) <= step:
+            return int(cnt)
+        print(f'Введено некорректное значение. Напиши число от 1 до {step}')
+        print(f'Попробуйте ещё раз, у Вас {attempt-1} попытки')
+        attempt -= 1
+    else:
+        return print(f'Game over!')
+    '''
+    while True:   # бесконечный цикл
+        cnt = input(f'Ваш ход. Не более {step} конфет: ')
+        if cnt.isdigit() and 1 <= int(cnt) <= step:
+            return int(cnt)
+        print(f'Введено некорректное значение. Напиши число от 1 до {step}')
+    '''
+
+while cur_candies:  # пока здесь что-то есть играем !=0
+    if human:  # если переменная истина
+        cnt = get_human_step()
+        cur_candies -= cnt
+        print(f'User взял {cnt} конфет. Осталось {cur_candies}.')
+    else:
+        cnt = get_ai_step()
+        cur_candies -= cnt
+        print(f'Питон взял {cnt} конфет. Осталось {cur_candies}.')
+    human = not human   # переключатель с user на бота
+
+if human:
+    print('Победил ПИТОН')
+else:
+    print('Победил User')
+
