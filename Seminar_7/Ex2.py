@@ -68,6 +68,7 @@ elif operation == '*':
 else:
    print('Неизвестная операция') 
 '''
+'''
 Пожалуйста, введите символ операции, которую вы хотите совершить и нажмите Enter: 
  
 + : Сложение
@@ -100,7 +101,7 @@ def ask_operation():
 
 
 
-    operations = {'+': lambda x, y: x + y,
+operations = {'+': lambda x, y: x + y,
               '-': lambda x, y: x - y,
               '*': lambda x, y: x * y,
               '/': lambda x, y: x / y}
