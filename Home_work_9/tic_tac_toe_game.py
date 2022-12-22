@@ -7,19 +7,20 @@ import emoji
 
 print("*" * 10, " Игра Крестики-нолики для двух игроков ", "*" * 10)
 #:skull:
-#:boom:
-#:metal:
-# https://www.webfx.com/tools/emoji-cheat-sheet/    берем emoji от сюда
+#:Christmas_tree:
+#:Santa_Claus:
+# :alien:
+# https://carpedm20.github.io/emoji/    берем emoji от сюда
 
 square = {'1': emoji.emojize(':skull:'), '2': emoji.emojize(':skull:'), '3': emoji.emojize(':skull:\n'),
         '4': emoji.emojize(':skull:'), '5': emoji.emojize(':skull:'), '6': emoji.emojize(':skull:\n'), 
         '7': emoji.emojize(':skull:'), '8': emoji.emojize(':skull:'), '9': emoji.emojize(':skull:\n')}
 square_copy = dict.copy(square) # копия словаря
-square_copy
+square_copy ['1'] = emoji.emojize(':alien:')
 for key, value in square_copy.items():
-    print(key[1])
-    #print(value, end='')
-
+    
+    print(value, end='')
+print(emoji.emojize(':Santa_Claus:'))
 
 # рисует игровое поле
 def draw_board(square):
