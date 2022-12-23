@@ -1,7 +1,7 @@
 import os
-#from telebot import TeleBot, types
-import telebot
+from telebot import TeleBot, types
 import messages as m
+import operations
 
 os.chdir(os.path.dirname(__file__))
 '''
@@ -10,8 +10,8 @@ os.chdir(os.path.dirname(__file__))
     организовать меню, добавив в неё систему логирования
 '''
 
-token = open("token.config", "r").read()
-bot = telebot.TeleBot(token)
+token = open("token.config", "r").read() # прочитай README или config.txt
+bot = TeleBot(token)
 #TOKEN = '' 
 #bot = TeleBot(TOKEN)
 
@@ -27,71 +27,13 @@ def send_welcome(message):
 
 @bot.message_handler()
 def answer(msg: types.Message):
-
     text = msg.text
-    if text == '+':
-        bot.register_next_step_handler(msg, answer1)
-        bot.send_message(chat_id=msg.from_user.id, text='Введите слагаемые')
-    elif text == '-':
-        bot.register_next_step_handler(msg, answer2)
-        bot.send_message(chat_id=msg.from_user.id,
-                         text='Введите уменьшаемое и вычитаемое')
-    else:
-        bot.send_message(chat_id=msg.from_user.id, text='Вы прислали: ' + msg.text +
-                                                        ', а должны были арифметическое действие')
+    bot.register_next_step_handler(msg, operations.proverka(text))
+    bot.send_message(chat_id=msg.from_user.id, text='Введите слагаемые')
+   
 
         
 
-
-
-
-
-
-
-def importdata():
-    operation = int(input('Введите желаемый знак:'))
-    n1 = complex(input("Введите первое число: "))
-    n2 = complex(input("Введите второе число: "))
-    return operation, n1, n2
-
-
-def proverka(operation, n1, n2):
-    result = 0
-    if operation == '+':
-        result = (f'Сложение \n {sum(n1, n2)}')
-    elif operation == '-':
-        result = (f'Вычитание \n {subtract(n1, n2)}')
-    elif operation == '*':
-        result = (f'Умножение \n {multiply(n1, n2)}')
-    elif operation == '/':
-        result = (f'Деление\n {divide(n1, n2)}')
-    else:
-        result = ('Неизвестная операция, нормально печатай не путай меня')
-    return result
-
-
-# Сложение
-def sum(a, b):
-    result = a + b
-    return result
-
-
-# Вычитание
-def subtract(a, b):
-    result = a - b
-    return result
-
-
-# Умножение
-def multiply(a, b):
-    result = a * b
-    return result
-
-
-# Деление
-def divide(a, b):
-    result = a / b
-    return result
 
 
 #print(proverka(*importdata()))
