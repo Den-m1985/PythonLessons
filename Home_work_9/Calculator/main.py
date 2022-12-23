@@ -1,7 +1,6 @@
 import os
 from telebot import TeleBot, types
 import messages as m
-import operations
 
 os.chdir(os.path.dirname(__file__))
 '''
@@ -23,20 +22,55 @@ def send_welcome(message):
         bot.reply_to(message, m.OPERATIONS)
     else:
         bot.reply_to(message, m.INFO_MESSAGE)
-        
+
 
 @bot.message_handler()
-def answer(msg: types.Message):
-    text = msg.text
-    bot.register_next_step_handler(msg, operations.proverka(text))
-    bot.send_message(chat_id=msg.from_user.id, text='Введите слагаемые')
-   
+def send_welcome(message):
+    
+    text = message.text
+    if text == '+':
+        bot.register_next_step_handler(message, sum)
+        bot.reply_to(message, m.MESSAGE_1)
+    elif text == '-':
+        bot.register_next_step_handler(message, subtraction)
+        bot.reply_to(message, m.MESSAGE_1)
+    elif text == '//':
+        bot.register_next_step_handler(message, devision)
+        bot.reply_to(message, m.MESSAGE_1)
+    elif text == '*':
+        bot.register_next_step_handler(message, mult)
+        bot.reply_to(message, m.MESSAGE_1)
+    else:
+        bot.reply_to(message, text='Вы прислали: ' + text +
+                        ', а должны были арифметическое действие') 
 
-        
+
+def sum(msg):
+    a, b = map(float, msg.text.split())
+    bot.send_message(chat_id=msg.from_user.id, text=f'Результат сложения {a + b}')
+    bot.send_message(chat_id=msg.from_user.id, text=m.MESSAGE_2)  
 
 
 
-#print(proverka(*importdata()))
+def subtraction(msg):
+    a, b = map(float, msg.text.split())
+    bot.send_message(chat_id=msg.from_user.id, text=f'Результат вычитания {a - b}')
+    bot.send_message(chat_id=msg.from_user.id, text=m.MESSAGE_2)
+    
+    
+def devision(msg):
+    a, b = map(float, msg.text.split())
+    bot.send_message(chat_id=msg.from_user.id, text=f'Результат деления {a / b}')
+    bot.send_message(chat_id=msg.from_user.id, text=m.MESSAGE_2)
+    
+    
+def mult(msg):
+    a, b = map(float, msg.text.split())
+    bot.send_message(chat_id=msg.from_user.id, text=f'Результат умножения {a * b}')
+    bot.send_message(chat_id=msg.from_user.id, text=m.MESSAGE_2)
+
+
+
 
 
 bot.polling()

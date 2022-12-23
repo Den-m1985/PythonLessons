@@ -1,4 +1,6 @@
 
+
+
 def importdata():
     operation = int(input('Введите желаемый знак:'))
     n1 = complex(input("Введите первое число: "))
