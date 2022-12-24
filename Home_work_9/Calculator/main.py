@@ -1,5 +1,5 @@
 import os
-from telebot import TeleBot, types
+from telebot import TeleBot
 import messages as m
 import datetime
 os.chdir(os.path.dirname(__file__))
