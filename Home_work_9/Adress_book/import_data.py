@@ -62,4 +62,4 @@ def write_csv(data):
         with open('phonebook.csv', "a", encoding='utf-8') as fil:
             csv_fil = csv.writer(fil, delimiter=';')
             csv_fil.writerow(data[i])
-            print('Данные успешно записаны')
+            #print('Данные успешно записаны')

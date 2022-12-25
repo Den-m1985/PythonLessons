@@ -1,7 +1,8 @@
 import os
 from telebot import TeleBot, types
 import messages as m
-import datetime
+import operations
+import import_data
 os.chdir(os.path.dirname(__file__))
 
 '''
@@ -35,7 +36,7 @@ def answer(msg: types.Message):
         bot.send_message(chat_id=msg.from_user.id, text=m.MESSAGE_3)
     elif text == '2':
         bot.register_next_step_handler(msg, answer2)
-        bot.send_message(chat_id=msg.from_user.id, text=m.OPERATIONS)
+        bot.send_message(chat_id=msg.from_user.id, text=m.MESSAGE_5)
     elif text == '3':
         bot.register_next_step_handler(msg, answer3)
         bot.send_message(chat_id=msg.from_user.id, text=m.OPERATIONS)
@@ -49,17 +50,19 @@ def answer(msg: types.Message):
         bot.send_message(chat_id=msg.from_user.id, text='Вы прислали: ' + msg.text + f', а должны: {m.OPERATIONS + m.MESSAGE_2}')
 
 
-
-def answer1(msg):   # Сделать добавление нового контакта
-    a, b = map(int, msg.text.split())
+# добавление нового контакта
+def answer1(msg):
+    contact = [msg.text.split()]
+    import_data.write_csv(contact)
     bot.send_message(chat_id=msg.from_user.id,
-                     text=f'Результат сложения {a + b}')
+                     text=m.MESSAGE_4 + m.MESSAGE_2)
 
 
 def answer2(msg):   # Сделать вывод записей на экран
-    a, b = map(int, msg.text.split())
+     
+    
     bot.send_message(chat_id=msg.from_user.id,
-                     text=f'Результат сложения {a + b}')
+                     text=m.MESSAGE_2)
 
 
 
