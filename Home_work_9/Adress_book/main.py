@@ -22,9 +22,45 @@ bot = TeleBot(token)
 def send_welcome(message):
     cmd = message.text.lstrip('/')
     if cmd == 'start':
-        bot.reply_to(message, m.OPERATIONS)
+        bot.reply_to(message, m.OPERATIONS + m.MESSAGE_2)
     else:
         bot.reply_to(message, m.INFO_MESSAGE)
+
+# прнимаем команду от пользователя
+@bot.message_handler()
+def answer(msg: types.Message):
+    text = msg.text
+    if text == '1':
+        bot.register_next_step_handler(msg, answer1)
+        bot.send_message(chat_id=msg.from_user.id, text=m.MESSAGE_3)
+    elif text == '2':
+        bot.register_next_step_handler(msg, answer2)
+        bot.send_message(chat_id=msg.from_user.id, text=m.OPERATIONS)
+    elif text == '3':
+        bot.register_next_step_handler(msg, answer3)
+        bot.send_message(chat_id=msg.from_user.id, text=m.OPERATIONS)
+    elif text == '4':
+        bot.register_next_step_handler(msg, answer4)
+        bot.send_message(chat_id=msg.from_user.id, text=m.OPERATIONS)
+    elif text == '5':
+        bot.register_next_step_handler(msg, answer5)
+        bot.send_message(chat_id=msg.from_user.id, text=m.OPERATIONS)
+    else:
+        bot.send_message(chat_id=msg.from_user.id, text='Вы прислали: ' + msg.text + f', а должны: {m.OPERATIONS + m.MESSAGE_2}')
+
+
+
+def answer1(msg):   # Сделать добавление нового контакта
+    a, b = map(int, msg.text.split())
+    bot.send_message(chat_id=msg.from_user.id,
+                     text=f'Результат сложения {a + b}')
+
+
+def answer2(msg):   # Сделать вывод записей на экран
+    a, b = map(int, msg.text.split())
+    bot.send_message(chat_id=msg.from_user.id,
+                     text=f'Результат сложения {a + b}')
+
 
 
 # Функция для сохранения документа, отправленного боту
@@ -40,6 +76,8 @@ def answer(msg: types.Message):
     # чтобы не тратить память.
     # Не забудьте импортировать os
     #os.remove(filename)
+
+
 
 
 bot.polling()
