@@ -31,18 +31,26 @@ def send_welcome(message):
 @bot.message_handler()
 def answer(msg: types.Message):
     text = msg.text
+    # работает
     if text == '1':
         bot.register_next_step_handler(msg, answer1)
         bot.send_message(chat_id=msg.from_user.id, text=m.MESSAGE_3)
+    # не выводит список контактов    
     elif text == '2':
-        bot.register_next_step_handler(msg, answer2)
+        #bot.register_next_step_handler(msg, answer2)
+        temp = operations.read_contact()    
         bot.send_message(chat_id=msg.from_user.id, text=m.MESSAGE_5)
+        bot.send_message(chat_id=msg.from_user.id,text=temp)
+        bot.send_message(chat_id=msg.from_user.id, text=m.MESSAGE_2)
+    #
     elif text == '3':
         bot.register_next_step_handler(msg, answer3)
-        bot.send_message(chat_id=msg.from_user.id, text=m.OPERATIONS)
+        bot.send_message(chat_id=msg.from_user.id, text=m.MESSAGE_6)
+    #
     elif text == '4':
         bot.register_next_step_handler(msg, answer4)
         bot.send_message(chat_id=msg.from_user.id, text=m.OPERATIONS)
+    #
     elif text == '5':
         bot.register_next_step_handler(msg, answer5)
         bot.send_message(chat_id=msg.from_user.id, text=m.OPERATIONS)
@@ -54,15 +62,15 @@ def answer(msg: types.Message):
 def answer1(msg):
     contact = [msg.text.split()]
     import_data.write_csv(contact)
-    bot.send_message(chat_id=msg.from_user.id,
-                     text=m.MESSAGE_4 + m.MESSAGE_2)
+    bot.send_message(chat_id=msg.from_user.id,text=m.MESSAGE_4)
+    bot.send_message(chat_id=msg.from_user.id,text=m.MESSAGE_2)
 
 
 def answer2(msg):   # Сделать вывод записей на экран
      
-    
-    bot.send_message(chat_id=msg.from_user.id,
-                     text=m.MESSAGE_2)
+    #temp = operations.read_contact()    
+    #bot.send_message(chat_id=msg.from_user.id,text=temp)
+    bot.send_message(chat_id=msg.from_user.id,text=m.MESSAGE_2)
 
 
 
