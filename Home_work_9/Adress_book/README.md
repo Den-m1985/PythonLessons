@@ -56,13 +56,5 @@
 Путь программы main.py -> controller.py -> searchcontact.py 
 
 ***
-Денис Мартьянов - https://github.com/Den-m1985  -  https://t.me/Den_m1985  -  орг, readme, diagram, menu,       operations, controller, import, export
-***
-Александр Анохин - https://github.com/Aleksandr-Anokhin - @Aleks_Anokhin -  menu, operations, controller, export, searchcontact
-***
-Егор Смольянинов  - https://github.com/Egor21Green -  https://t.me/Green21Tea  import
-***
-Валерия - https://github.com/ValeriyaNov  -  https://t.me/valeriyanovv   - diagram, import, controller
-***
-Denis Guzanov  https://t.me/Guzanov_event
+Денис Мартьянов - https://github.com/Den-m1985  -  https://t.me/Den_m1985 
 ***
