@@ -54,8 +54,11 @@ def answer(msg: types.Message):
         bot.send_message(chat_id=msg.from_user.id, text=m.MESSAGE_8)
     # поис записи  не доделан
     elif text == '5':
-        bot.register_next_step_handler(msg, answer5)
-        bot.send_message(chat_id=msg.from_user.id, text=m.MESSAGE_9)
+        try:
+            bot.register_next_step_handler(msg, answer5)
+            bot.send_message(chat_id=msg.from_user.id, text=m.MESSAGE_9)
+        except:
+            bot.send_message(chat_id=msg.from_user.id, text=m.MESSAGE_9)
     else:
         bot.send_message(chat_id=msg.from_user.id, text='Вы прислали: ' + msg.text + f', а должны: {m.OPERATIONS + m.MESSAGE_2}')
 
@@ -66,6 +69,7 @@ def answer1(msg):
     operations.write_csv(contact)
     bot.send_message(chat_id=msg.from_user.id,text=m.MESSAGE_4)
     bot.send_message(chat_id=msg.from_user.id,text=m.MESSAGE_2)
+
 
 # выводит список контактов
 def answer2(msg): 
@@ -90,12 +94,12 @@ def answer4(msg):
 
 
 # поиск контакта
-def answer5(msg): 
+def answer5(msg):
     search_name = msg.text
     temp = operations.searchcontact(search_name)
     bot.send_message(chat_id=msg.from_user.id,text=temp)
     bot.send_message(chat_id=msg.from_user.id,text=m.MESSAGE_2)
-
+    
 
 # Функция для сохранения документа, отправленного боту
 @bot.message_handler(content_types=['document'])
