@@ -13,14 +13,15 @@ def write_csv(data):
 
 # Читаем csv для п.2
 def read_contact(unit = 1, file_name = 'phonebook.csv'):
-    data =''
+    data =[]
     with open(file_name, "r", newline='', encoding='utf-8') as f:
         reader = csv.reader(f, delimiter=';')
         for row in reader:
-            data += ' '.join(row)
+            data.append(row)
+    #data = dict()
            
-    return data
-#print(read_contact())
+    return ''.join(str(data))
+print(read_contact())
 
 
 # Поиск контакта
