@@ -54,13 +54,11 @@ def answer(msg: types.Message):
         bot.send_message(chat_id=msg.from_user.id, text=m.MESSAGE_8)
     # поис записи  не доделан
     elif text == '5':
-        try:
             bot.register_next_step_handler(msg, answer5)
             bot.send_message(chat_id=msg.from_user.id, text=m.MESSAGE_9)
-        except:
-            bot.send_message(chat_id=msg.from_user.id, text=m.MESSAGE_9)
     else:
-        bot.send_message(chat_id=msg.from_user.id, text='Вы прислали: ' + msg.text + f', а должны: {m.OPERATIONS + m.MESSAGE_2}')
+        bot.send_message(chat_id=msg.from_user.id, text='Вы прислали: ' +
+                     msg.text + f', а должны: {m.OPERATIONS + m.MESSAGE_2}')
 
 
 # добавление нового контакта
@@ -95,10 +93,14 @@ def answer4(msg):
 
 # поиск контакта
 def answer5(msg):
-    search_name = msg.text
-    temp = operations.searchcontact(search_name)
-    bot.send_message(chat_id=msg.from_user.id,text=temp)
-    bot.send_message(chat_id=msg.from_user.id,text=m.MESSAGE_2)
+    try:
+        search_name = msg.text
+        a = str(search_name).title()
+        temp = operations.searchcontact(a)
+        bot.send_message(chat_id=msg.from_user.id,text=temp)
+        bot.send_message(chat_id=msg.from_user.id,text=m.MESSAGE_2)
+    except:
+        bot.send_message(chat_id=msg.from_user.id, text=m.MESSAGE_9)
     
 
 # Функция для сохранения документа, отправленного боту

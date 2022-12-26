@@ -28,12 +28,9 @@ def searchcontact(searchname):
     data =''
     with open('phonebook.csv', "r", newline='', encoding='utf-8') as f:
         csv_f = csv.reader(f, delimiter=';')
-        try:
-            for line in csv_f:
-                if searchname in line:
-                    data += ' '.join(line)
-                    break
-        except:
-            return 0
+        for line in csv_f:
+            if searchname in line:
+                data += ' '.join(line)
+                break
     return data
 #print(searchcontact('Иван'))
