@@ -9,25 +9,17 @@ os.chdir(os.path.dirname(__file__))
 '''
 
 
-def copy_cont():
-    path = input('Введите имя файла, откуда хотите скопировать данные   ')
 
-    def import_csv(path_to_import_csv_file):
-        data = []
-        with open(f'{path_to_import_csv_file}.csv', "r", newline='', encoding='utf-8') as file:
+def import_csv(path_to_import_csv_file):
+    data = []
+    with open(f'{path_to_import_csv_file}.csv', "r", newline='', encoding='utf-8') as file:
 
-            file_reader = csv.reader(file, delimiter=";")
-            for row in file_reader:
-                data.append(row)
-        return data
-    d = import_csv(path)
-    f = input(
-        'Введите имя или фамилию человека, данные которого необходимо записать в записную книжку   ')
-    arr = []
-    for i in range(len(d)):
-        if f in d[i]:
-            arr.append(d[i])
-    return arr
+        file_reader = csv.reader(file, delimiter=";")
+        for row in file_reader:
+            data.append(row)
+    return data
+    
+
 
 
 def copy_cont_json():
@@ -57,9 +49,3 @@ def copy_cont_json():
     print('Данные успешно записаны')
 
 
-def write_csv(data):
-    for i in range(len(data)):
-        with open('phonebook.csv', "a", encoding='utf-8') as fil:
-            csv_fil = csv.writer(fil, delimiter=';')
-            csv_fil.writerow(data[i])
-            #print('Данные успешно записаны')

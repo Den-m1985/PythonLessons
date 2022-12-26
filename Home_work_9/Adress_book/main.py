@@ -49,7 +49,7 @@ def answer(msg: types.Message):
     # сохранить в нашу БД от куда-то
     elif text == '4':
         bot.register_next_step_handler(msg, answer4)
-        bot.send_message(chat_id=msg.from_user.id, text=m.OPERATIONS)
+        bot.send_message(chat_id=msg.from_user.id, text=m.MESSAGE_8)
     # поис записи
     elif text == '5':
         bot.register_next_step_handler(msg, answer5)
@@ -61,7 +61,7 @@ def answer(msg: types.Message):
 # добавление нового контакта
 def answer1(msg):
     contact = [msg.text.split()]
-    import_data.write_csv(contact)
+    operations.write_csv(contact)
     bot.send_message(chat_id=msg.from_user.id,text=m.MESSAGE_4)
     bot.send_message(chat_id=msg.from_user.id,text=m.MESSAGE_2)
 
@@ -74,7 +74,18 @@ def answer2(msg):
 def answer3(msg): 
     file_name = msg.text
     export_data.csv_to_json(file_name)
+    bot.send_message(chat_id=msg.from_user.id,text=m.MESSAGE_7)
     bot.send_message(chat_id=msg.from_user.id,text=m.MESSAGE_2)
+
+
+# импорт данных в файл от пользователя
+def answer4(msg): 
+    file_name = msg.text
+    a = import_data.import_csv(file_name)
+    operations.write_csv(a)
+    bot.send_message(chat_id=msg.from_user.id,text=m.MESSAGE_7)
+    bot.send_message(chat_id=msg.from_user.id,text=m.MESSAGE_2)
+
 
 
 # Функция для сохранения документа, отправленного боту
