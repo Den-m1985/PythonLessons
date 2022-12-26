@@ -19,6 +19,7 @@ bot = TeleBot(token)
 #TOKEN = '' 
 #bot = TeleBot(TOKEN)
 
+
 # команды Start и Info
 @bot.message_handler(commands=m.USER_COMMANDS)
 def send_welcome(message):
@@ -27,6 +28,7 @@ def send_welcome(message):
         bot.reply_to(message, m.OPERATIONS + m.MESSAGE_2)
     else:
         bot.reply_to(message, m.INFO_MESSAGE)
+
 
 # прнимаем команду от пользователя
 @bot.message_handler()
@@ -53,7 +55,7 @@ def answer(msg: types.Message):
     # поис записи  не доделан
     elif text == '5':
         bot.register_next_step_handler(msg, answer5)
-        bot.send_message(chat_id=msg.from_user.id, text=m.OPERATIONS)
+        bot.send_message(chat_id=msg.from_user.id, text=m.MESSAGE_9)
     else:
         bot.send_message(chat_id=msg.from_user.id, text='Вы прислали: ' + msg.text + f', а должны: {m.OPERATIONS + m.MESSAGE_2}')
 
@@ -86,6 +88,13 @@ def answer4(msg):
     bot.send_message(chat_id=msg.from_user.id,text=m.MESSAGE_7)
     bot.send_message(chat_id=msg.from_user.id,text=m.MESSAGE_2)
 
+
+# поиск контакта
+def answer5(msg): 
+    search_name = msg.text
+    temp = operations.searchcontact(search_name)
+    bot.send_message(chat_id=msg.from_user.id,text=temp)
+    bot.send_message(chat_id=msg.from_user.id,text=m.MESSAGE_2)
 
 
 # Функция для сохранения документа, отправленного боту
