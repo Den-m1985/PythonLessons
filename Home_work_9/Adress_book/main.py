@@ -50,7 +50,7 @@ def answer(msg: types.Message):
     elif text == '4':
         bot.register_next_step_handler(msg, answer4)
         bot.send_message(chat_id=msg.from_user.id, text=m.MESSAGE_8)
-    # поис записи
+    # поис записи  не доделан
     elif text == '5':
         bot.register_next_step_handler(msg, answer5)
         bot.send_message(chat_id=msg.from_user.id, text=m.OPERATIONS)
