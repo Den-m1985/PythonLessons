@@ -1,4 +1,6 @@
 import csv
+import os
+os.chdir(os.path.dirname(__file__))
 
 
 # Создаем новый контакт
@@ -49,15 +51,11 @@ def save_to_csv(new_contacts, file_name = 'phonebook.csv'):
 
 # Читаем csv
 def read_contact(unit = 1, file_name = 'phonebook.csv'):
-    data =[]
+    data =''
     with open(file_name, "r", newline='', encoding='utf-8') as f:
         reader = csv.reader(f, delimiter=';')
         for row in reader:
-            data.append(row)
-            #if unit == 2:
-            #    item = ', '.join(row)
-            #    print(item)
-            #if unit == 1:
-            #    for item in row:
-                    #print(item)        
-    return data 
+            data += ' '.join(row)
+           
+    return data
+#print(read_contact())
