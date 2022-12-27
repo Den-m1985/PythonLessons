@@ -48,11 +48,11 @@ def answer(msg: types.Message):
     elif text == '3':
         bot.register_next_step_handler(msg, answer3)
         bot.send_message(chat_id=msg.from_user.id, text=m.MESSAGE_6)
-    # сохранить в нашу БД от куда-то
+    # сохранить в нашу БД от пользователя
     elif text == '4':
         bot.register_next_step_handler(msg, answer4)
         bot.send_message(chat_id=msg.from_user.id, text=m.MESSAGE_8)
-    # поис записи  не доделан
+    # поис записи
     elif text == '5':
             bot.register_next_step_handler(msg, answer5)
             bot.send_message(chat_id=msg.from_user.id, text=m.MESSAGE_9)
