@@ -111,13 +111,14 @@ def answer(msg: types.Message):
     with open(filename, 'wb') as file:
         file.write(bot.download_file(
             bot.get_file(msg.document.file_id).file_path))
-        
-    a = import_data.import_csv('for_adress_book')
-    for i in range(len(a)):
+    
+    name = os.path.splitext(filename)
+    temp = import_data.import_csv(name[0])
+    for i in range(len(temp)):
         with open('phonebook.csv', "a", encoding='utf-8') as fil:
             csv_fil = csv.writer(fil, delimiter=';')
-            csv_fil.writerow(a[i])
-        
+            csv_fil.writerow(temp[i])
+    
         
             
     bot.send_message(chat_id=msg.from_user.id, text=m.MESSAGE_7)
