@@ -1,5 +1,6 @@
 import os
 from telebot import TeleBot, types
+import csv
 import messages as m
 import operations
 import import_data
@@ -14,10 +15,10 @@ python -m pip install pytelegrambotapi
 '''
 
 
-token = open("token.config", "r").read() # прочитай README или config.txt
+token = open("token.config", "r").read()  # прочитай README или config.txt
 bot = TeleBot(token)
-#TOKEN = '' 
-#bot = TeleBot(TOKEN)
+# TOKEN = ''
+# bot = TeleBot(TOKEN)
 
 
 # команды Start и Info
@@ -38,11 +39,11 @@ def answer(msg: types.Message):
     if text == '1':
         bot.register_next_step_handler(msg, answer1)
         bot.send_message(chat_id=msg.from_user.id, text=m.MESSAGE_3)
-    # выводит список контактов    
+    # выводит список контактов
     elif text == '2':
-        temp = operations.read_contact()    
+        temp = operations.read_contact()
         bot.send_message(chat_id=msg.from_user.id, text=m.MESSAGE_5)
-        bot.send_message(chat_id=msg.from_user.id,text=temp)
+        bot.send_message(chat_id=msg.from_user.id, text=temp)
         bot.send_message(chat_id=msg.from_user.id, text=m.MESSAGE_2)
     # экспорт данных в файл пользователя
     elif text == '3':
@@ -54,41 +55,41 @@ def answer(msg: types.Message):
         bot.send_message(chat_id=msg.from_user.id, text=m.MESSAGE_8)
     # поис записи
     elif text == '5':
-            bot.register_next_step_handler(msg, answer5)
-            bot.send_message(chat_id=msg.from_user.id, text=m.MESSAGE_9)
+        bot.register_next_step_handler(msg, answer5)
+        bot.send_message(chat_id=msg.from_user.id, text=m.MESSAGE_9)
     else:
         bot.send_message(chat_id=msg.from_user.id, text='Вы прислали: ' +
-                     msg.text + f', а должны: {m.OPERATIONS + m.MESSAGE_2}')
+                         msg.text + f', а должны: {m.OPERATIONS + m.MESSAGE_2}')
 
 
 # добавление нового контакта
 def answer1(msg):
     contact = [msg.text.split()]
     operations.write_csv(contact)
-    bot.send_message(chat_id=msg.from_user.id,text=m.MESSAGE_4)
-    bot.send_message(chat_id=msg.from_user.id,text=m.MESSAGE_2)
+    bot.send_message(chat_id=msg.from_user.id, text=m.MESSAGE_4)
+    bot.send_message(chat_id=msg.from_user.id, text=m.MESSAGE_2)
 
 
 # выводит список контактов
-def answer2(msg): 
-    bot.send_message(chat_id=msg.from_user.id,text=m.MESSAGE_2)
+def answer2(msg):
+    bot.send_message(chat_id=msg.from_user.id, text=m.MESSAGE_2)
 
 
 # экспорт данных в файл пользователя
-def answer3(msg): 
+def answer3(msg):
     file_name = msg.text
     export_data.csv_to_json(file_name)
-    bot.send_message(chat_id=msg.from_user.id,text=m.MESSAGE_7)
-    bot.send_message(chat_id=msg.from_user.id,text=m.MESSAGE_2)
+    bot.send_message(chat_id=msg.from_user.id, text=m.MESSAGE_7)
+    bot.send_message(chat_id=msg.from_user.id, text=m.MESSAGE_2)
 
 
 # импорт данных в файл от пользователя
-def answer4(msg): 
+def answer4(msg):
     file_name = msg.text
     a = import_data.import_csv(file_name)
     operations.write_csv(a)
-    bot.send_message(chat_id=msg.from_user.id,text=m.MESSAGE_7)
-    bot.send_message(chat_id=msg.from_user.id,text=m.MESSAGE_2)
+    bot.send_message(chat_id=msg.from_user.id, text=m.MESSAGE_7)
+    bot.send_message(chat_id=msg.from_user.id, text=m.MESSAGE_2)
 
 
 # поиск контакта
@@ -97,10 +98,30 @@ def answer5(msg):
         search_name = msg.text
         a = str(search_name).title()
         temp = operations.searchcontact(a)
-        bot.send_message(chat_id=msg.from_user.id,text=temp)
-        bot.send_message(chat_id=msg.from_user.id,text=m.MESSAGE_2)
+        bot.send_message(chat_id=msg.from_user.id, text=temp)
+        bot.send_message(chat_id=msg.from_user.id, text=m.MESSAGE_2)
     except:
         bot.send_message(chat_id=msg.from_user.id, text=m.MESSAGE_9)
-    
+
+
+# Функция для сохранения документа, отправленного боту
+@bot.message_handler(content_types=['document'])
+def answer(msg: types.Message):
+    filename = msg.document.file_name
+    with open(filename, 'wb') as file:
+        file.write(bot.download_file(
+            bot.get_file(msg.document.file_id).file_path))
+        
+    a = import_data.import_csv('for_adress_book')
+    for i in range(len(a)):
+        with open('temp.csv', "a", encoding='utf-8') as fil:
+            csv_fil = csv.writer(fil, delimiter=';')
+            csv_fil.writerow(a[i])
+            
+    bot.send_message(chat_id=msg.from_user.id, text=m.MESSAGE_7)
+
+    # Удаляем файл после обработки
+    os.remove(filename)
+
 
 bot.polling()
