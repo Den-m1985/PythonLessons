@@ -107,24 +107,21 @@ def answer5(msg):
 # Функция для сохранения документа, отправленного боту
 @bot.message_handler(content_types=['document'])
 def answer(msg: types.Message):
+    # скачиваем файл
     filename = msg.document.file_name
     with open(filename, 'wb') as file:
         file.write(bot.download_file(
             bot.get_file(msg.document.file_id).file_path))
-    
-    name = os.path.splitext(filename)
+    # добавляем в нашу БД из скаченного файла
+    name = os.path.splitext(filename)  # отделяем имя от расширения
     temp = import_data.import_csv(name[0])
     for i in range(len(temp)):
-        with open('phonebook.csv', "a", encoding='utf-8') as fil:
+        with open('phonebook.csv', "a", newline='', encoding='utf-8') as fil:
             csv_fil = csv.writer(fil, delimiter=';')
             csv_fil.writerow(temp[i])
-    
-        
-            
+                
     bot.send_message(chat_id=msg.from_user.id, text=m.MESSAGE_7)
-
-    # Удаляем файл после обработки
-    os.remove(filename)
+    os.remove(filename) # Удаляем файл после обработки
 
 
 bot.polling()
