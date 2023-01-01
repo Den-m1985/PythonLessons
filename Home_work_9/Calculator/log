@@ -59,3 +59,46 @@
  Chat 1983067427 Usrer: Денис Data: 2022-12-31 10:05:21.518286 Message: 1.5 + 1.5
  Chat 1983067427 Usrer: Денис Data: 2022-12-31 10:05:32.076562 Message: 1.56887 / 1.65488
  Chat 1983067427 Usrer: Денис Data: 2022-12-31 10:05:56.059011 Message: 1.568 ++ 1.658
+ Chat 1983067427 User: Денис Data: 2022-12-31 10:11:27.940438 Message: 1 + 1
+ Chat 1983067427 User: Денис Data: 2022-12-31 10:11:41.193805 Message: 1 ++ 1
+ Chat 1983067427 User: Денис Data: 2022-12-31 10:14:19.944626 Message: zfb
+ Chat 1983067427 User: Денис Data: 2022-12-31 10:14:38.891698 Message: 1 + 1
+ Chat 1983067427 User: Денис Data: 2022-12-31 10:19:05.106425 Message: dxfgh
+ Chat 1983067427 User: Денис Data: 2022-12-31 10:19:08.230866 Message: zdfbzf
+ Chat 1983067427 User: Денис Data: 2022-12-31 10:19:09.349095 Message: zdfg
+ Chat 1983067427 User: Денис Data: 2022-12-31 10:19:10.802286 Message: 56
+ Chat 1983067427 User: Денис Data: 2022-12-31 10:19:12.603977 Message: vbn
+ Chat 1983067427 User: Денис Data: 2022-12-31 10:19:20.067059 Message: 1 + 1
+ Chat 1983067427 User: Денис Data: 2022-12-31 10:22:46.278579 Message: 1 + 1
+ Chat 1983067427 User: Денис Data: 2022-12-31 10:22:50.072104 Message: 2 + 2
+ Chat 1983067427 User: Денис Data: 2022-12-31 10:23:44.203579 Message: h
+ Chat 1983067427 User: Денис Data: 2022-12-31 10:23:47.815690 Message: 1 + 1
+ Chat 1983067427 User: Денис Data: 2022-12-31 10:23:57.170842 Message: 1 ++ 1
+ Chat 1983067427 User: Денис Data: 2022-12-31 10:27:39.561989 Message: 10 +10
+ Chat 1983067427 User: Денис Data: 2022-12-31 10:27:47.481464 Message: 10 + 10
+ Chat 1983067427 User: Денис Data: 2022-12-31 10:30:01.852478 Message: 20 +20
+ Chat 1983067427 User: Денис Data: 2022-12-31 10:30:03.766908 Message: /start
+ Chat 1983067427 User: Денис Data: 2022-12-31 10:30:15.165528 Message: 1 + 1
+ Chat 1983067427 User: Денис Data: 2022-12-31 10:30:52.321766 Message: /start
+ Chat 1983067427 User: Денис Data: 2022-12-31 10:30:54.008414 Message: /help
+ Chat 1983067427 User: Денис Data: 2022-12-31 10:30:58.357534 Message: /start
+ Chat 1983067427 User: Денис Data: 2022-12-31 10:32:17.366543 Message: /start
+ Chat 1983067427 User: Денис Data: 2022-12-31 10:32:20.596743 Message: 1 + 1
+ Chat 1983067427 User: Денис Data: 2022-12-31 10:34:13.540875 Message: 1 + 1
+ Chat 1983067427 User: Денис Data: 2022-12-31 10:37:25.536786 Message: 1 + 1 Answer: 2.0
+ Chat 1983067427 User: Денис Data: 2022-12-31 10:41:28.353658 Message: /start Answer: 0
+ Chat 1983067427 User: Денис Data: 2023-01-01 12:40:26.735236 Message: /start Answer: empty
+ Chat 1983067427 User: Денис Data: 2023-01-01 12:40:42.386822 Message: 1 + 1 Answer: 2.0
+ Chat 1983067427 User: Денис Data: 2023-01-01 12:49:36.218972 Message: /start Answer: empty
+ Chat 1983067427 User: Денис Data: 2023-01-01 12:49:40.469166 Message: 1 + 1 Answer: 2.0
+ Chat 1983067427 User: Денис Data: 2023-01-01 12:49:44.369430 Message: 2 + 2 Answer: 4.0
+ Chat 1983067427 User: Денис Data: 2023-01-01 12:49:49.782144 Message: 2 - 2 Answer: 0.0
+ Chat 1983067427 User: Денис Data: 2023-01-01 12:49:57.326215 Message: 3 / 1 Answer: 3.0
+ Chat 1983067427 User: Денис Data: 2023-01-01 12:50:03.227482 Message: 3 * 2 Answer: 6.0
+ Chat 1983067427 User: Денис Data: 2023-01-01 12:50:14.225455 Message: 3 ++ 6 Answer: (9+0j)
+ Chat 1983067427 User: Денис Data: 2023-01-01 12:50:24.051605 Message: 3 -- 8 Answer: (11+0j)
+ Chat 1983067427 User: Денис Data: 2023-01-01 12:52:50.596796 Message: 3 -- 8 Answer: (11+0j)
+ Chat 1983067427 User: Денис Data: 2023-01-01 12:54:30.071716 Message: 1 — 8 Answer: eror
+ Chat 1983067427 User: Денис Data: 2023-01-01 12:54:39.973104 Message: 1 -- 8 Answer: (9+0j)
+ Chat 1983067427 User: Денис Data: 2023-01-01 12:55:06.767130 Message: 5 // 2 Answer: (2.5+0j)
+ Chat 1983067427 User: Денис Data: 2023-01-01 12:55:13.848720 Message: 5 ** 10 Answer: (50+0j)
