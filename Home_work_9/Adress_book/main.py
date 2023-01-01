@@ -4,7 +4,6 @@ import csv
 import messages as m
 import operations
 import import_data
-import export_data
 import Loging
 os.chdir(os.path.dirname(__file__))
 
@@ -74,29 +73,6 @@ def new_contact(msg):
     operations.write_csv(contact)
     bot.send_message(chat_id=msg.from_user.id, text=m.MESSAGE_4)
     bot.send_message(chat_id=msg.from_user.id, text=m.MESSAGE_2)
-
-
-'''
-# выводит список контактов
-def answer2(msg):
-    bot.send_message(chat_id=msg.from_user.id, text=m.MESSAGE_2)
-
-# экспорт данных в файл пользователя
-def answer3(msg):
-    file_name = msg.text
-    export_data.csv_to_json(file_name)
-    bot.send_message(chat_id=msg.from_user.id, text=m.MESSAGE_7)
-    bot.send_message(chat_id=msg.from_user.id, text=m.MESSAGE_2)
-
-
-# импорт данных в файл от пользователя
-def answer4(msg):
-    file_name = msg.text
-    a = import_data.import_csv(file_name)
-    operations.write_csv(a)
-    bot.send_message(chat_id=msg.from_user.id, text=m.MESSAGE_7)
-    bot.send_message(chat_id=msg.from_user.id, text=m.MESSAGE_2)
-'''
 
 
 # поиск контакта
