@@ -4,7 +4,7 @@ import csv
 import messages as m
 import operations
 import import_data
-import export_data
+import Loging
 os.chdir(os.path.dirname(__file__))
 
 '''
@@ -14,11 +14,9 @@ os.chdir(os.path.dirname(__file__))
 python -m pip install pytelegrambotapi
 '''
 
-
 token = open("token.config", "r").read()  # прочитай README или config.txt
-bot = TeleBot(token)
 # TOKEN = ''
-# bot = TeleBot(TOKEN)
+bot = TeleBot(token)
 
 
 # команды Start и Info
@@ -29,71 +27,56 @@ def send_welcome(message):
         bot.reply_to(message, m.OPERATIONS + m.MESSAGE_2)
     else:
         bot.reply_to(message, m.INFO_MESSAGE)
+    Loging.log(message)
 
 
 # прнимаем команду от пользователя
 @bot.message_handler()
 def answer(msg: types.Message):
     text = msg.text
-    # работает
     if text == '1':
-        bot.register_next_step_handler(msg, answer1)
+        bot.register_next_step_handler(msg, new_contact)
         bot.send_message(chat_id=msg.from_user.id, text=m.MESSAGE_3)
+        Loging.log(msg, m.MESSAGE_4)
+
     # выводит список контактов
     elif text == '2':
-        temp = operations.read_contact()
+        print_contacts = operations.read_contact()
         bot.send_message(chat_id=msg.from_user.id, text=m.MESSAGE_5)
-        bot.send_message(chat_id=msg.from_user.id, text=temp)
+        bot.send_message(chat_id=msg.from_user.id, text=print_contacts)
         bot.send_message(chat_id=msg.from_user.id, text=m.MESSAGE_2)
-    # экспорт данных в файл пользователя
+        Loging.log(msg, m.MESSAGE_5)
+
+    # экспорт файла пользователю
     elif text == '3':
-        bot.register_next_step_handler(msg, answer3)
-        bot.send_message(chat_id=msg.from_user.id, text=m.MESSAGE_6)
-    # сохранить в нашу БД от пользователя
-    elif text == '4':
-        bot.register_next_step_handler(msg, answer4)
-        bot.send_message(chat_id=msg.from_user.id, text=m.MESSAGE_8)
+        bot.send_document(chat_id=msg.from_user.id, document=open('phonebook.csv', 'rb'))
+        bot.send_message(chat_id=msg.from_user.id, text=m.MESSAGE_12)
+        bot.send_message(chat_id=msg.from_user.id, text=m.MESSAGE_2)
+        Loging.log(msg, m.MESSAGE_11)
+
     # поис записи
-    elif text == '5':
-        bot.register_next_step_handler(msg, answer5)
+    elif text == '4':
+        bot.register_next_step_handler(msg, search_contact)
         bot.send_message(chat_id=msg.from_user.id, text=m.MESSAGE_9)
+        Loging.log(msg, m.MESSAGE_10)
+
     else:
-        bot.send_message(chat_id=msg.from_user.id, text='Вы прислали: ' +
-                         msg.text + f', а должны: {m.OPERATIONS + m.MESSAGE_2}')
+        bot.send_message(chat_id=msg.from_user.id, text='Вы прислали: ' + 
+                                msg.text + f', а должны: {m.OPERATIONS}')
+        bot.send_message(chat_id=msg.from_user.id, text=m.MESSAGE_2)
+        Loging.log(msg, 'eror')
 
 
 # добавление нового контакта
-def answer1(msg):
+def new_contact(msg):
     contact = [msg.text.split()]
     operations.write_csv(contact)
     bot.send_message(chat_id=msg.from_user.id, text=m.MESSAGE_4)
     bot.send_message(chat_id=msg.from_user.id, text=m.MESSAGE_2)
 
 
-# выводит список контактов
-def answer2(msg):
-    bot.send_message(chat_id=msg.from_user.id, text=m.MESSAGE_2)
-
-
-# экспорт данных в файл пользователя
-def answer3(msg):
-    file_name = msg.text
-    export_data.csv_to_json(file_name)
-    bot.send_message(chat_id=msg.from_user.id, text=m.MESSAGE_7)
-    bot.send_message(chat_id=msg.from_user.id, text=m.MESSAGE_2)
-
-
-# импорт данных в файл от пользователя
-def answer4(msg):
-    file_name = msg.text
-    a = import_data.import_csv(file_name)
-    operations.write_csv(a)
-    bot.send_message(chat_id=msg.from_user.id, text=m.MESSAGE_7)
-    bot.send_message(chat_id=msg.from_user.id, text=m.MESSAGE_2)
-
-
 # поиск контакта
-def answer5(msg):
+def search_contact(msg):
     try:
         search_name = msg.text
         a = str(search_name).title()
@@ -104,7 +87,7 @@ def answer5(msg):
         bot.send_message(chat_id=msg.from_user.id, text=m.MESSAGE_9)
 
 
-# Функция для сохранения документа, отправленного боту
+# Сохранения документа, отправленного боту
 @bot.message_handler(content_types=['document'])
 def answer(msg: types.Message):
     # скачиваем файл
@@ -121,7 +104,10 @@ def answer(msg: types.Message):
             csv_fil.writerow(temp[i])
                 
     bot.send_message(chat_id=msg.from_user.id, text=m.MESSAGE_7)
+    bot.send_message(chat_id=msg.from_user.id, text=m.MESSAGE_2)
     os.remove(filename) # Удаляем файл после обработки
+
+    Loging.log(msg, m.MESSAGE_7)
 
 
 bot.polling()
