@@ -1,7 +1,7 @@
 import os
 from telebot import TeleBot
 import messages as m
-import datetime
+import Loging
 os.chdir(os.path.dirname(__file__))
 
 '''
@@ -29,56 +29,42 @@ def send_welcome(message):
 
 @bot.message_handler()
 def send_welcome(message):
-    
-    text = message.text
-    if text == '+':
-        bot.register_next_step_handler(message, sum)
-        bot.reply_to(message, m.MESSAGE_1)
-    elif text == '-':
-        bot.register_next_step_handler(message, subtraction)
-        bot.reply_to(message, m.MESSAGE_1)
-    elif text == '//' or text == '/':
-        bot.register_next_step_handler(message, devision)
-        bot.reply_to(message, m.MESSAGE_1)
-    elif text == '*':
-        bot.register_next_step_handler(message, mult)
-        bot.reply_to(message, m.MESSAGE_1)
-    elif text == '+++':
-        bot.register_next_step_handler(message, sum_complex_numbers)
-        bot.reply_to(message, m.MESSAGE_1)
-    elif text == '---':
-        bot.register_next_step_handler(message, subtraction_complex_numbers)
-        bot.reply_to(message, m.MESSAGE_1)
-    else:
-        bot.reply_to(message, text='Вы прислали: ' + text +
-                        ', а должны были арифметическое действие')
-    
-    dtn = datetime.datetime.now()
-    botlogfile = open('log_calculator.txt', 'a', encoding='utf-8')
-    print(dtn.strftime("%d-%m-%Y %H:%M"), 'Пользователь ' + 
-            message.from_user.first_name, message.from_user.id, 
-            'операция: ' + text, file=botlogfile)
-    botlogfile.close()
+    text = message.text.split()
+    if len(text) == 3:
+        if text[1] == '+':
+            answer = float(text[0]) + float(text[2])
+            bot.reply_to(message, text=f'Результат сложения {answer}')
+            bot.send_message(chat_id=message.from_user.id,text=m.MESSAGE_2 + m.MESSAGE_3)
 
+        elif text[1] == '-':
+            answer = float(text[0]) - float(text[2])
+            bot.reply_to(message, text=f'Результат вычитания {answer}')
+            bot.send_message(chat_id=message.from_user.id,text=m.MESSAGE_2 + m.MESSAGE_3)
 
-def sum(msg):
-    a, b = map(float, msg.text.split())
-    bot.send_message(chat_id=msg.from_user.id, text=f'Результат сложения {a + b}')
-    bot.send_message(chat_id=msg.from_user.id, text=m.MESSAGE_2) 
+        elif text[1] == '/':
+            if text[2] == '0':
+                answer = 'eror'
+                bot.reply_to(message, text='деление на 0 не допустимо')
+                bot.send_message(chat_id=message.from_user.id,text=m.MESSAGE_2 + m.MESSAGE_3)
+            else:
+                answer = float(text[0]) / float(text[2])
+                bot.reply_to(message, text=f'Результат деления {answer}')
+                bot.send_message(chat_id=message.from_user.id,text=m.MESSAGE_2 + m.MESSAGE_3)
 
+        elif text[1] == '*':
+            answer = float(text[0]) * float(text[2])
+            bot.reply_to(message, text=f'Результат умножения {answer}')
+            bot.send_message(chat_id=message.from_user.id,text=m.MESSAGE_2 + m.MESSAGE_3)
 
-def sum_complex_numbers(msg):
-    a, b = map(complex, msg.text.split())
-    bot.send_message(chat_id=msg.from_user.id, text=f'Результат сложения {a + b}')
-    bot.send_message(chat_id=msg.from_user.id, text=m.MESSAGE_2)  
+        elif text[1] == '++':
+            answer = complex(text[0]) + complex(text[2])
+            bot.reply_to(message, text=f'Результат сложения {answer}')
+            bot.send_message(chat_id=message.from_user.id,text=m.MESSAGE_2 + m.MESSAGE_3)
 
-
-
-def subtraction(msg):
-    a, b = map(float, msg.text.split())
-    bot.send_message(chat_id=msg.from_user.id, text=f'Результат вычитания {a - b}')
-    bot.send_message(chat_id=msg.from_user.id, text=m.MESSAGE_2)
-    
+        elif text[1] == '--':
+            answer = complex(text[0]) + complex(text[2])
+            bot.reply_to(message, text=f'Результат вычитания {answer}')
+            bot.send_message(chat_id=message.from_user.id,text=m.MESSAGE_2 + m.MESSAGE_3)
 
         elif text[1] == '—':
             answer = 'eror'
@@ -108,6 +94,5 @@ def subtraction(msg):
     
     Loging.log(message, answer)
     
->>>>>>> c0c3833897ee5c7e4462d673c1383e73a5e96232
 
 bot.polling(none_stop=True, interval=0)
